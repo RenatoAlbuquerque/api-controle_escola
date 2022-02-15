@@ -3,11 +3,19 @@ const PessoaController = require("../controllers/PessoaController");
 
 const router = Router();
 
-router.get("/pessoas", PessoaController.pegaTodasAsPessoas);
+router.get("/pessoas/todos", PessoaController.pegaTodasAsPessoas);
+router.get("/pessoas", PessoaController.pegaPessoasAtivas);
 router.get("/pessoas/:id", PessoaController.pegaUmaPessoa);
+router.get("/pessoas/:estudanteId/matricula", PessoaController.pegaMatricula);
+router.get(
+  "/pessoas/matricula/:turmaId/confirmadas",
+  PessoaController.pegaMatriculasPorTurma
+);
+router.get("/pessoas/matricula/lotada", PessoaController.pegaTurmasLotadas);
 router.post("/pessoas", PessoaController.criaPessoa);
 router.put("/pessoas/:id", PessoaController.atualizaPessoa);
 router.delete("/pessoas/:id", PessoaController.apagarPessoa);
+router.post("/pessoas/:id/restaura", PessoaController.restauraPessoa);
 
 router.get(
   "/pessoas/:estudanteId/matricula/:matriculaId",
@@ -21,6 +29,10 @@ router.put(
 router.delete(
   "/pessoas/:estudanteId/matricula/:matriculaId",
   PessoaController.apagarMatricula
+);
+router.post(
+  "/pessoas/:estudanteId/matricula/:matriculaId/restaura",
+  PessoaController.restauraMatricula
 );
 
 module.exports = router;
